@@ -1,0 +1,10 @@
+# Contrôle final du module I324 (S5). Ne pas modifier.
+# Il tourne toujours en dernier (étape .post), même si un autre job a échoué.
+verifier:
+  stage: .post
+  image: node:lts
+  when: always
+  variables:
+    GIT_DEPTH: "0"
+  script:
+    - node ci/verifier.js
