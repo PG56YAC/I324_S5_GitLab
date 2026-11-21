@@ -36,7 +36,7 @@ async function main() {
     // 4. Le pipeline contient un job de tests écrit par l'élève
     const ci = fs.existsSync('.gitlab-ci.yml') ? fs.readFileSync('.gitlab-ci.yml', 'utf8') : '';
     if (!/ci\/verifier\.yml/.test(ci)) ko('Le pipeline inclut le contrôle final', '.gitlab-ci.yml n\'inclut pas ci/verifier.yml.', 'Recopiez exactement le fichier de l\'étape 8.');
-    else if (!/npm (run )?test/.test(ci)) ko('Le pipeline contient un job de tests', 'Aucun job ne lance npm test.', 'Ajoutez le job « tests » de l\'étape 8.');
+    else if (!/npm (run )?test|npx jest/.test(ci)) ko('Le pipeline contient un job de tests', 'Aucun job ne lance npm test.', 'Ajoutez le job « tests » de l\'étape 8.');
     else ok('Le pipeline contient un job de tests');
 
     // 5. Les tests passent

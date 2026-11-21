@@ -1,0 +1,12 @@
+# Missions du vendredi, module I324 (S5). Ne pas modifier.
+# Tourne en dernier (étape .post). En orange tant qu'il reste une mission.
+missions:
+  stage: .post
+  image: node:lts
+  when: always
+  allow_failure: true
+  variables:
+    OUTILS: /tmp/outils
+  script:
+    - npm install --prefix /tmp/outils --no-audit --no-fund --silent js-yaml
+    - node ci/missions.js
