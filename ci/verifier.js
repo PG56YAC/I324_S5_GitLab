@@ -16,7 +16,7 @@ async function main() {
 
     // 1. Le runner
     const version = `${env.CI_SERVER_VERSION || '?'}`;
-    if (fs.existsSync('/.dockerenv')) ok('Le runner exécute les jobs dans un conteneur Docker', `GitLab ${version}, runner « ${env.CI_RUNNER_DESCRIPTION || '?'} »`);
+    if (fs.existsSync('/.dockerenv')) ok('Le runner exécute les jobs dans un conteneur Docker', `GitLab ${version}, runner n° ${env.CI_RUNNER_ID || '?'}`);
     else ko('Le runner exécute les jobs dans un conteneur Docker', 'Ce job ne tourne pas dans un conteneur.', 'Réenregistrez le runner avec l\'exécuteur « docker » (étape 6 de la feuille).');
 
     // 2. Le projet vient bien du dépôt fourni

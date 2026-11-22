@@ -39,7 +39,9 @@ const MISSIONS = [
             if (!p || p[1].stage !== 'build') return 'Aucun job du stage build ne lance npm pack.';
             const chemins = ((p[1].artifacts || {}).paths || []).join(' ');
             if (!/tgz/.test(chemins)) return 'Le job qui lance npm pack ne garde pas le .tgz comme artefact.';
-            if (!fs.readdirSync('.').some((f) => f.endsWith('.tgz'))) return 'Le fichier .tgz n\'est pas arrivé jusqu\'ici. Le job paquet est-il vert ? Tourne-t-il sur cette branche ?';
+            const surMain = !process.env.CI_COMMIT_BRANCH || process.env.CI_COMMIT_BRANCH === process.env.CI_DEFAULT_BRANCH;
+            // Sur une autre branche, le paquet n'est pas fabriqué (mission 5) : on ne cherche pas le fichier
+            if (surMain && !fs.readdirSync('.').some((f) => f.endsWith('.tgz'))) return 'Le fichier .tgz n\'est pas arrivé jusqu\'ici. Le job paquet est-il vert ? Tourne-t-il sur cette branche ?';
             return null;
         },
     },
